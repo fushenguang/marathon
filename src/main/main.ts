@@ -127,7 +127,8 @@ const createWindow = async () => {
     show: false,
     width: 1024,
     height: 768,
-    icon: '../../resource/unrelease/icon.png',
+    frame: false,
+    // icon: '../../resource/unrelease/icon.png',
     webPreferences: {
       // webSecurity: false,
       // nodeIntegration: true,

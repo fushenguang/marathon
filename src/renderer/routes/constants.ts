@@ -1,4 +1,5 @@
 export const ROUTER = {
+  boot: '/boots',
   app: '/',
   login: '/login',
   register: '/register',
@@ -11,6 +12,7 @@ export const ROUTER_LIST = Object.values(ROUTER);
 
 export const ROUTER_KEYS = {
   app: 'app',
+  boot: 'boot',
   login: 'login',
   register: 'register',
   careers: 'careers',
@@ -19,6 +21,11 @@ export const ROUTER_KEYS = {
 };
 
 export const ROUTER_ENTRY: IRouter.Item[] = [
+  {
+    url: ROUTER.boot,
+    key: ROUTER_KEYS.boot,
+    text: '启动页',
+  },
   {
     url: ROUTER.app,
     key: ROUTER_KEYS.app,
