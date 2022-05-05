@@ -1,7 +1,7 @@
 {
   "name": "marathon",
   "version": "0.1.0",
-  "description": "",
+  "description": "Make career easy",
   "scripts": {
     "prepare": "husky install",
     "start": "concurrently \"node ./scripts/dev\" \"npm run json-server\"",
@@ -19,8 +19,8 @@
     "react"
   ],
   "author": {
-    "name": "YourName",
-    "email": ""
+    "name": "fujia",
+    "email": "fujia.site@outlook.com"
   },
   "license": "MIT",
   "commitlint": {
