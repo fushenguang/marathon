@@ -4,6 +4,8 @@ import { App } from '@pages/app';
 import { LoginAndRegisterPage } from '@pages/login-register';
 import { ROUTER } from './constants';
 import { Careers } from '@pages/careers';
+import { ResumeManage } from '@pages/resume-manage';
+import { ResumeEdit } from '@pages/resume-manage/resumes';
 import { Home } from '@pages/home';
 
 const Router = () => {
@@ -12,7 +14,9 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<App />} caseSensitive>
           <Route index element={<Home />} />
-          <Route path="careers" element={<Careers />} />
+          <Route path={ROUTER.careers} element={<Careers />} />
+          <Route path={ROUTER.resumes} element={<ResumeManage />} />
+          <Route path={ROUTER.resumeEdit} element={<ResumeEdit />} />
         </Route>
         <Route path={ROUTER.login} element={<LoginAndRegisterPage />} />
         <Route path={ROUTER.register} element={<LoginAndRegisterPage />} />

@@ -126,7 +126,7 @@ const createWindow = async () => {
   mainWin = new BrowserWindow({
     show: false,
     width: 1024,
-    height: 728,
+    height: 768,
     icon: '../../resource/unrelease/icon.png',
     webPreferences: {
       // webSecurity: false,

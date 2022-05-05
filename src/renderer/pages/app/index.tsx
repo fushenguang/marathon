@@ -90,15 +90,14 @@ export const App = () => {
 
   return (
     <Layout>
-      <Header className="home-header" style={{ position: 'fixed' }}>
+      <Header className="app-header" style={{ position: 'fixed' }}>
         <Logo onClick={handleLogoClick} />
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={['develop']}
           selectedKeys={[location.pathname]}
           items={NAVIGATION_LIST}
-          style={{ outline: 'none' }}
+          style={{ flex: 1, marginLeft: 32, outline: 'none' }}
         />
         {!curUser ? (
           <UserOperate>
@@ -116,12 +115,10 @@ export const App = () => {
           </Dropdown>
         )}
       </Header>
-      <Content className="home-main">
+      <Content className="app-main">
         <Outlet />
       </Content>
-      <Footer className="home-footer">marathon ©2022 Created by Fujia.site</Footer>
+      <Footer className="app-footer">marathon ©2022 Created by Fujia.site</Footer>
     </Layout>
   );
 };
-
-App.displayName = 'App';

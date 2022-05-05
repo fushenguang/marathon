@@ -22,6 +22,7 @@ module.exports = {
     alias: {
       '@store': resolve('/src/renderer/store'),
       '@pages': resolve('/src/renderer/pages'),
+      '@routes': resolve('/src/renderer/routes'),
       '@components': resolve('/src/renderer/components'),
       '@utils': resolve('/src/renderer/utils'),
       '@assets': resolve('/src/renderer/assets'),
@@ -63,20 +64,6 @@ module.exports = {
         ],
         include: [assetsIconsPath]
       },
-      // {
-      //   test: /\.(jpg|png|jpeg|gif|svg)$/,
-      //   use: [
-      //     {
-      //       loader: 'url-loader',
-      //       options: {
-      //         limit: 2048,
-      //         name: '[name]_[hash:5].[ext]',
-      //         outputPath: 'images/',
-      //       },
-      //     },
-      //   ],
-      //   exclude: [assetsIconsPath]
-      // },
        // Fonts
        {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,

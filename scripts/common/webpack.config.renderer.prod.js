@@ -7,6 +7,8 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const rendererBaseConfig = require('../common/webpack.config.renderer.base');
 const webpack = require('webpack');
 
+console.log(process.env.ANALYZE);
+
 module.exports = merge(rendererBaseConfig, {
   mode: 'production',
   devtool: false,
@@ -82,8 +84,7 @@ module.exports = merge(rendererBaseConfig, {
     }),
 
     new BundleAnalyzerPlugin({
-      // analyzerMode: process.env.ANALYZE === 'true' ? 'server' : 'disabled',
-      analyzerMode: 'server',
+      analyzerMode: process.env.ANALYZE === 'true' ? 'server' : 'disabled',
     }),
   ],
 });
