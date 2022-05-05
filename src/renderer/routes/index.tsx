@@ -1,6 +1,7 @@
 import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import { App } from '@pages/app';
+import { Boot } from '@pages/boot';
 import { LoginAndRegisterPage } from '@pages/login-register';
 import { ROUTER } from './constants';
 import { Careers } from '@pages/careers';
@@ -12,6 +13,7 @@ const Router = () => {
   return (
     <HashRouter>
       <Routes>
+        <Route path="/boot" element={<Boot />} />
         <Route path="/" element={<App />} caseSensitive>
           <Route index element={<Home />} />
           <Route path={ROUTER.careers} element={<Careers />} />

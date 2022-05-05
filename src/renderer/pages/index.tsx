@@ -3,8 +3,8 @@ import { Provider } from 'react-redux';
 
 import Router from '../routes/index';
 import { store } from '../store';
-import '@assets/styles/global.scss';
 import 'antd/dist/antd.css';
+import '@assets/styles/global.scss';
 
 const container = document.getElementById('root')!;
 
