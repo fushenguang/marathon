@@ -1,11 +1,9 @@
-import React from 'react';
-import { Button } from 'antd';
 import { Icon } from '@components/Icon';
 
-export const DevelopPage = () => {
+export const Careers = () => {
   return (
     <section>
-      <h1>开发页</h1>
+      <h1>职业生涯</h1>
       <Icon name="setting" size={48} />
     </section>
   );

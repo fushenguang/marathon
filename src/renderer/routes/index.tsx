@@ -1,23 +1,18 @@
-import React from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 
-import { Home } from '@pages/home';
+import { App } from '@pages/app';
 import { LoginAndRegisterPage } from '@pages/login-register';
 import { ROUTER } from './constants';
-import { DevelopPage } from '@pages/develop';
-import { ToolPage } from '@pages/tools';
-import { ServicePage } from '@pages/services';
-import { ApplicationPage } from '@pages/applications';
+import { Careers } from '@pages/careers';
+import { Home } from '@pages/home';
 
 const Router = () => {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/" element={<Home />} caseSensitive>
-          <Route index element={<DevelopPage />} />
-          <Route path={ROUTER.tools} element={<ToolPage />} />
-          <Route path={ROUTER.services} element={<ServicePage />} />
-          <Route path={ROUTER.apps} element={<ApplicationPage />} />
+        <Route path="/" element={<App />} caseSensitive>
+          <Route index element={<Home />} />
+          <Route path="careers" element={<Careers />} />
         </Route>
         <Route path={ROUTER.login} element={<LoginAndRegisterPage />} />
         <Route path={ROUTER.register} element={<LoginAndRegisterPage />} />
