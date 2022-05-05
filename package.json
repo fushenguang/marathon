@@ -9,6 +9,7 @@
     "start:preload": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --config ./scripts/common/webpack.config.preload.dev.js",
     "release": "npm run clean && node ./scripts/release",
     "pack": "npm run clean && node ./scripts/release --dir",
+    "pack:analyze": "npm run clean && cross-env ANALYZE=true node ./scripts/release --dir",
     "test": "jest",
     "clean": "rimraf ./release",
     "json-server": "json-server __json_server_mock__/db.json --watch --port 3001 --middlewares ./__json_server_mock__/middleware.js"

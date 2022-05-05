@@ -1,0 +1,8 @@
+.ant-card.home-card {
+  transition: box-shadow 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 2px 4px 6px #ddd;
+  }
+}
