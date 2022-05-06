@@ -1,8 +1,10 @@
-import { Card } from 'antd';
+import { Card, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
+// import { useMounted } from '@fujia/hooks';s
 
 import { HomeHeader, Slogan, HomeMain } from './styles';
 import { ROUTER, ROUTER_LIST } from '@routes/constants';
+import { DragBox } from '@components/DragBox';
 
 const { Meta } = Card;
 
@@ -14,6 +16,20 @@ export const Home = () => {
       navigate(routeName);
     }
   };
+
+  const handleOpenDialog = () => {
+    window.electron.dialog.show({
+      title: '打开一个文件',
+      buttonLabel: '按此打开文件',
+    });
+  };
+
+  // useMounted(() => {
+  //   window.oncontextmenu = function (e) {
+  //     e.preventDefault();
+  //     console.log(e.clientX, e.clientY);
+  //   };
+  // });
 
   return (
     <section>
@@ -30,6 +46,8 @@ export const Home = () => {
         >
           <Meta title="简历管理" description="轻松的管理个人简历" />
         </Card>
+        {/* <Button onClick={handleOpenDialog}>open system dialog</Button> */}
+        <DragBox />
       </HomeMain>
     </section>
   );
