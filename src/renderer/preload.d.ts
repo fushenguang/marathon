@@ -1,4 +1,5 @@
 import type { CallbackFunc } from '../main/preload';
+import type { OpenDialogOptions } from 'electron';
 
 declare global {
   interface Window {
@@ -12,6 +13,9 @@ declare global {
         get: (key: string) => any;
         set: (key: string, val: any) => void;
         delete: (key: string) => void;
+      };
+      dialog: {
+        show: (options: OpenDialogOptions) => any;
       };
     };
   }

@@ -1,4 +1,4 @@
-import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
+import { contextBridge, ipcRenderer, IpcRendererEvent, OpenDialogOptions } from 'electron';
 
 export type CallbackFunc = (...args: unknown[]) => void;
 
@@ -27,6 +27,11 @@ contextBridge.exposeInMainWorld('electron', {
         // Deliberately strip event as it includes `sender`
         ipcRenderer.once(channel, (_event, ...args) => func(...args));
       }
+    },
+  },
+  dialog: {
+    async show(options: OpenDialogOptions) {
+      return ipcRenderer.send('open-dialog', options);
     },
   },
   store: {

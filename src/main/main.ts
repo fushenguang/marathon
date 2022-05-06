@@ -1,22 +1,17 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import fs from 'fs';
 import path from 'path';
-import { app, BrowserWindow, protocol, ipcMain, shell } from 'electron';
-import EStore from 'electron-store';
+import { app, BrowserWindow, screen, protocol, shell, Tray } from 'electron';
+// import { exec } from 'child_process';
 
 import { appUpdater } from './updater';
 import { MenuBuilder } from './menu';
-
-export const eStore = new EStore();
-
-// const ROOT_PATH = path.join(app.getAppPath(), '../..');
+import { injectIpcMainEvents } from './ipc-main';
 
 // Disable hardware acceleration which easy to lead to host interface jamming under Ubuntu System.
 app.disableHardwareAcceleration();
 
-// ipcMain.on('get-root-path', (event, arg) => {
-//   event.reply('reply-root-path', ROOT_PATH);
-// });
+injectIpcMainEvents();
 
 protocol.registerSchemesAsPrivileged([
   {
@@ -31,24 +26,7 @@ protocol.registerSchemesAsPrivileged([
 ]);
 
 let mainWin: BrowserWindow | null = null;
-
-ipcMain.on('ipc-example', async (event, arg) => {
-  const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-  console.log(msgTemplate(arg));
-  event.reply('ipc-example', msgTemplate('pong'));
-});
-
-ipcMain.on('store-get', async (event, val) => {
-  event.returnValue = eStore.get(val);
-});
-
-ipcMain.on('store-set', async (_event, key, val) => {
-  eStore.set(key, val);
-});
-
-ipcMain.on('store-delete', async (_event, key) => {
-  eStore.delete(key);
-});
+let tray: Tray | null = null;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -56,8 +34,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const isDebug = process.env.NODE_ENV === 'development';
-// console.log('isDebug', isDebug);
-console.log('app.getPath', app.getPath('userData'));
 
 if (isDebug) {
   require('electron-debug')();
@@ -130,7 +106,7 @@ const createWindow = async () => {
     frame: false,
     // icon: '../../resource/unrelease/icon.png',
     webPreferences: {
-      // webSecurity: false,
+      webSecurity: false, // Disable same-origin policy for the current window
       // nodeIntegration: true,
       // contextIsolation: false,
       preload: app.isPackaged
@@ -193,5 +169,22 @@ app
       // dock icon is clicked and there are no other windows open.
       if (mainWin === null) createWindow();
     });
+
+    const trayIcon = path.join(__dirname, '../../resource/unrelease/tray@2x.png');
+    tray = new Tray(trayIcon);
+    tray.on('click', () => {
+      mainWin?.show();
+    });
+
+    // const mainScreen = screen.getPrimaryDisplay();
+
+    // console.log(mainScreen);
+    // exec('osk.exe');
   })
   .catch(console.log);
+
+app.setAboutPanelOptions({
+  applicationName: 'Marathon',
+  applicationVersion: app.getVersion(),
+  copyright: 'fujia © 2022',
+});
