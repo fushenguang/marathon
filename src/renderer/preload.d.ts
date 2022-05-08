@@ -6,6 +6,8 @@ declare global {
     electron: {
       ipcRenderer: {
         myPing: VoidFunction;
+        startScreenRecording: VoidFunction;
+        printToPDF: VoidFunction;
         on: (channel: string, func: CallbackFunc) => VoidFunction | undefined;
         once: (channel: string, func: CallbackFunc) => void;
       };

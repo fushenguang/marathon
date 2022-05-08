@@ -1,4 +1,6 @@
-import { ipcMain, dialog } from 'electron';
+import path from 'path';
+import fs from 'fs';
+import { ipcMain, dialog, desktopCapturer, webContents, app } from 'electron';
 import EStore from 'electron-store';
 
 export const eStore = new EStore();
@@ -8,6 +10,39 @@ export function injectIpcMainEvents() {
     const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
     console.log(msgTemplate(arg));
     event.reply('ipc-example', msgTemplate('pong'));
+  });
+
+  ipcMain.on('screen-recording', async (event) => {
+    const sources = await desktopCapturer.getSources({
+      types: ['window', 'screen'],
+    });
+
+    for (const source of sources) {
+      if (source.name === 'Entire Screen') {
+        event.reply('screen-recording', source.id);
+      }
+    }
+  });
+
+  ipcMain.on('print-to-pdf', async (event) => {
+    const focusedWebContents = webContents.getFocusedWebContents();
+    const data = await focusedWebContents.printToPDF({});
+    const fileObject = await dialog.showSaveDialog({
+      title: '保存为PDF',
+      defaultPath: app.getPath('documents'),
+      filters: [
+        {
+          name: 'pdf',
+          extensions: ['pdf'],
+        },
+      ],
+    });
+    if (!fileObject.filePath) return;
+
+    fs.writeFile(fileObject.filePath, data, (error: any) => {
+      if (error) throw error;
+      console.log('saved successful!');
+    });
   });
 
   ipcMain.on('store-get', async (event, val) => {

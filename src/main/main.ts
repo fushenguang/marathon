@@ -11,8 +11,6 @@ import { injectIpcMainEvents } from './ipc-main';
 // Disable hardware acceleration which easy to lead to host interface jamming under Ubuntu System.
 app.disableHardwareAcceleration();
 
-injectIpcMainEvents();
-
 protocol.registerSchemesAsPrivileged([
   {
     scheme: 'app',
@@ -27,6 +25,8 @@ protocol.registerSchemesAsPrivileged([
 
 let mainWin: BrowserWindow | null = null;
 let tray: Tray | null = null;
+
+injectIpcMainEvents();
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');

@@ -1,6 +1,8 @@
+import { useRef } from 'react';
+
 import { Card, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
-// import { useMounted } from '@fujia/hooks';s
+// import { useMounted } from '@fujia/hooks';
 
 import { HomeHeader, Slogan, HomeMain } from './styles';
 import { ROUTER, ROUTER_LIST } from '@routes/constants';
@@ -10,6 +12,7 @@ const { Meta } = Card;
 
 export const Home = () => {
   const navigate = useNavigate();
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const handleCardClick = (routeName: string) => () => {
     if (ROUTER_LIST.includes(routeName)) {
@@ -30,6 +33,43 @@ export const Home = () => {
   //     console.log(e.clientX, e.clientY);
   //   };
   // });
+  const handleScreenRecording = () => {
+    window.electron.ipcRenderer.once('screen-recording', async (sourceId: string) => {
+      console.log(sourceId);
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: false,
+          video: {
+            // @ts-ignore
+            mandatory: {
+              chromeMediaSource: 'desktop',
+              chromeMediaSourceId: sourceId,
+              minWidth: 1280,
+              maxWidth: 1280,
+              minHeight: 720,
+              maxHeight: 720,
+            },
+          },
+        });
+        const videoEle = videoRef.current;
+
+        if (!videoEle) return;
+
+        videoEle.srcObject = stream;
+        videoEle.onloadedmetadata = () => {
+          videoEle.play();
+        };
+      } catch (error) {
+        console.log(error);
+      }
+    });
+
+    window.electron.ipcRenderer.startScreenRecording();
+  };
+
+  const handlePrintToPDF = () => {
+    window.electron.ipcRenderer.printToPDF();
+  };
 
   return (
     <section>
@@ -49,6 +89,13 @@ export const Home = () => {
         {/* <Button onClick={handleOpenDialog}>open system dialog</Button> */}
         <DragBox />
       </HomeMain>
+      <div>
+        <Button onClick={handleScreenRecording}>Start Recording</Button>
+        <video ref={videoRef} />
+      </div>
+      <div>
+        <Button onClick={handlePrintToPDF}>Print To PDF</Button>
+      </div>
     </section>
   );
 };
