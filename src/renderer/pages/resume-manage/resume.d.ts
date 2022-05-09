@@ -2,7 +2,7 @@ declare namespace NResume {
   /**
    * @description 基本信息
    */
-  export interface Base {
+  export interface Profile {
     /**
      * @description 头像
      */
@@ -15,23 +15,23 @@ declare namespace NResume {
      * @description 地区
      */
     area?: string;
-    /**
-     * @description 学校
-     */
-    school?: string;
-    /**
-     * @description 学年
-     */
-    onSchoolTime?: {
-      /**
-       * @description 入校时间
-       */
-      beginTime: string | number | null;
-      /**
-       * @description 离校时间
-       */
-      endTime: string | number | null;
-    };
+    // /**
+    //  * @description 学校
+    //  */
+    // school?: string;
+    // /**
+    //  * @description 学年
+    //  */
+    // onSchoolTime?: {
+    //   /**
+    //    * @description 入校时间
+    //    */
+    //   beginTime: string | number | null;
+    //   /**
+    //    * @description 离校时间
+    //    */
+    //   endTime: string | number | null;
+    // };
     /**
      * @description 专业
      */
@@ -170,7 +170,7 @@ declare namespace NResume {
    * @description 一份完整的简历信息
    */
   export interface IntactResume {
-    base: Base;
+    base: Profile;
     skill: string;
     skillList: string[];
     hobby: string;

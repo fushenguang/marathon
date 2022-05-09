@@ -8,6 +8,7 @@ const rendererObj = getRendererObj();
 
 module.exports = {
   target: ['web', 'electron-renderer'],
+  // target: ['electron-renderer'],
   entry: rendererObj.entry,
   output: {
     filename: '[name].bundle.js',
@@ -20,6 +21,7 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx'],
     alias: {
+      '@common': resolve('/src/common'),
       '@store': resolve('/src/renderer/store'),
       '@pages': resolve('/src/renderer/pages'),
       '@routes': resolve('/src/renderer/routes'),
@@ -103,7 +105,7 @@ module.exports = {
     ],
   },
   plugins: [
-    ...rendererObj.plugins
+    ...rendererObj.plugins,
   ],
   node: {
     __dirname: false,

@@ -90,7 +90,7 @@ export const App = () => {
 
   return (
     <Layout>
-      <Header className="app-header" style={{ position: 'fixed' }}>
+      <Header className="app-header">
         <Logo onClick={handleLogoClick} />
         <Menu
           theme="dark"

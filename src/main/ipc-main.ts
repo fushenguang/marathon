@@ -3,6 +3,8 @@ import fs from 'fs';
 import { ipcMain, dialog, desktopCapturer, webContents, app } from 'electron';
 import EStore from 'electron-store';
 
+import { busEvents } from '@common/bus-events';
+
 export const eStore = new EStore();
 
 export function injectIpcMainEvents() {
@@ -60,5 +62,9 @@ export function injectIpcMainEvents() {
   ipcMain.on('open-dialog', async (_event, options) => {
     const filePath = await dialog.showOpenDialog(options);
     console.log(filePath);
+  });
+
+  busEvents.on('eventName', (...args: any[]) => {
+    console.log('busEvents', args);
   });
 }

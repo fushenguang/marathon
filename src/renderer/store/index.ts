@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
 import globalReducer from './global.slice';
+import resumeReducer from '@pages/resume-manage/resume.slice';
 
 export const store = configureStore({
   reducer: {
     global: globalReducer,
+    resume: resumeReducer,
   },
 });
 

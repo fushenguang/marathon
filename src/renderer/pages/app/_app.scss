@@ -1,9 +1,10 @@
-.app-header {
+header.app-header {
   display: flex;
   align-items: center;
   position: fixed;
   z-index: 1;
   width: 100%;
+  padding: 0 24px;
   -webkit-app-region: drag;
 }
 
@@ -11,7 +12,7 @@ main.app-main {
   display: flex;
   flex-direction: column;
   margin-top: 64px;
-  min-height: calc(100vh - 114px);
+  height: calc(100vh - 114px);
   width: 100vw;
 }
 

@@ -18,9 +18,13 @@ export const LoginAndRegisterPage = () => {
 
   const handleTogglePanel = () => {
     if (isRegister) {
-      navigate('/login');
+      navigate('/login', {
+        replace: true,
+      });
     } else {
-      navigate('/register');
+      navigate('/register', {
+        replace: true,
+      });
     }
   };
 

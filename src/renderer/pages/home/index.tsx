@@ -1,8 +1,7 @@
 import { useRef } from 'react';
-
 import { Card, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
-// import { useMounted } from '@fujia/hooks';
+import { useMounted } from '@fujia/hooks';
 
 import { HomeHeader, Slogan, HomeMain } from './styles';
 import { ROUTER, ROUTER_LIST } from '@routes/constants';
@@ -27,12 +26,12 @@ export const Home = () => {
     });
   };
 
-  // useMounted(() => {
-  //   window.oncontextmenu = function (e) {
-  //     e.preventDefault();
-  //     console.log(e.clientX, e.clientY);
-  //   };
-  // });
+  useMounted(() => {
+    // window.oncontextmenu = function (e) {
+    //   e.preventDefault();
+    //   console.log(e.clientX, e.clientY);
+    // };
+  });
   const handleScreenRecording = () => {
     window.electron.ipcRenderer.once('screen-recording', async (sourceId: string) => {
       console.log(sourceId);
@@ -89,13 +88,6 @@ export const Home = () => {
         {/* <Button onClick={handleOpenDialog}>open system dialog</Button> */}
         <DragBox />
       </HomeMain>
-      <div>
-        <Button onClick={handleScreenRecording}>Start Recording</Button>
-        <video ref={videoRef} />
-      </div>
-      <div>
-        <Button onClick={handlePrintToPDF}>Print To PDF</Button>
-      </div>
     </section>
   );
 };
