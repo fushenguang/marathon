@@ -1,21 +1,28 @@
 import { FC } from 'react';
 import { Form, Input, Button } from 'antd';
 
-import { BASE_FORM_FIELDS } from '../constants/resume-modules';
+import { BASE_FORM_FIELDS, ModuleBaseItem } from '../constants/resume-modules';
 
 interface ModuleBaseProps {
-  onSuccess: (formData: Record<keyof NResume.Profile, any>) => void;
+  onSuccess: (formData: Partial<ModuleBaseItem>) => void;
   onCancel: VoidFunction;
 }
 
 const Item = Form.Item;
 const { avatar, username, area, major, degree, hometown, political } = BASE_FORM_FIELDS;
 
+export const MODULE_BASE_NAME = 'ModuleBase';
+
 export const ModuleBase: FC<ModuleBaseProps> = (props) => {
   const { onSuccess, onCancel } = props;
 
   const handleFormFinish = (values: Record<keyof NResume.Profile, any>) => {
-    onSuccess(values);
+    const moduleItem: Partial<ModuleBaseItem> = {
+      moduleName: MODULE_BASE_NAME,
+      detail: values,
+    };
+
+    onSuccess(moduleItem);
   };
 
   const handleFormFailed = (errInfo: any) => {
@@ -78,3 +85,5 @@ export const ModuleBase: FC<ModuleBaseProps> = (props) => {
     </Form>
   );
 };
+
+ModuleBase.displayName = MODULE_BASE_NAME;

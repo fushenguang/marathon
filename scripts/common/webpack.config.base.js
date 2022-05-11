@@ -10,6 +10,7 @@ module.exports = {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
     alias: {
       '@common': resolve('/src/common'),
+      '@db': resolve('/src/db'),
     }
   },
   module: {

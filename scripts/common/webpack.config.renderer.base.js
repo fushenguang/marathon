@@ -22,6 +22,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js', '.jsx'],
     alias: {
       '@common': resolve('/src/common'),
+      '@db': resolve('/src/db'),
       '@store': resolve('/src/renderer/store'),
       '@pages': resolve('/src/renderer/pages'),
       '@routes': resolve('/src/renderer/routes'),

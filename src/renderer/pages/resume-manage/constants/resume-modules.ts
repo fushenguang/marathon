@@ -10,10 +10,12 @@ export interface ModuleItem<T = any> {
 
 export type ModuleBaseItem = ModuleItem<NResume.Profile | NResume.Contact>;
 
+export const MODULE_BASE_NAME = 'ModuleBase';
+
 export const DEFAULT_USED_MODULES: [ModuleBaseItem] = [
   {
     id: nanoid(8),
-    moduleName: 'basicInfo',
+    moduleName: MODULE_BASE_NAME,
     title: '基本信息',
     desc: '描述个人信息',
     detail: {

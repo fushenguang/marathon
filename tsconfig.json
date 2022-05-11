@@ -21,6 +21,7 @@
     "baseUrl": "./src",
     "paths": {
       "@common/*": ["./common/*"],
+      "@db/*": ["./db/*"],
       "@pages/*": ["./renderer/pages/*"],
       "@routes/*": ["./renderer/routes/*"],
       "@store/*": ["./renderer/store/*"],

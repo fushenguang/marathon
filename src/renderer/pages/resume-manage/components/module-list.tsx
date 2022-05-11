@@ -3,10 +3,11 @@ import { useAppSelector } from '@store/hooks';
 
 import { selectUsedModuleList, selectUnusedModuleList } from '../resume.slice';
 import { FC } from 'react';
+import { ModuleItem } from '../constants/resume-modules';
 
 interface ModuleListProps {
   moduleType: 'using' | 'unused';
-  onEdit?: (moduleName: string, moduleTitle: string) => void;
+  onEdit?: (item: ModuleItem) => void;
 }
 
 export const ModuleList: FC<ModuleListProps> = (props) => {
@@ -16,9 +17,9 @@ export const ModuleList: FC<ModuleListProps> = (props) => {
 
   const moduleList = moduleType === 'using' ? usedModuleList : unusedModuleList;
 
-  const handleItemEdit = (moduleName: string, moduleTitle: string) => {
+  const handleItemEdit = (item: ModuleItem) => {
     return () => {
-      onEdit && onEdit(moduleName, moduleTitle);
+      onEdit && onEdit(item);
     };
   };
 
@@ -30,7 +31,7 @@ export const ModuleList: FC<ModuleListProps> = (props) => {
         <List.Item
           style={{ background: '#fff', padding: 14, marginTop: 14 }}
           actions={[
-            <a key="list-loadmore-edit" onClick={handleItemEdit(item.moduleName, item.title)}>
+            <a key="list-loadmore-edit" onClick={handleItemEdit(item)}>
               编辑
             </a>,
           ]}
