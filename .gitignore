@@ -26,3 +26,6 @@ yarn.lock
 npm-debug.log.*
 
 .idea
+
+# sqlite
+__database/*.db
