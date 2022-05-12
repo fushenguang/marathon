@@ -6,6 +6,8 @@ export const ROUTER = {
   careers: '/careers',
   resumes: '/resumes',
   resumeEdit: '/resumes/edit',
+  records: '/records',
+  practices: 'practices',
 };
 
 export const ROUTER_LIST = Object.values(ROUTER);
@@ -18,6 +20,8 @@ export const ROUTER_KEYS = {
   careers: 'careers',
   resumes: 'resumes',
   resumeEdit: 'resumeEdit',
+  records: 'records',
+  practices: 'practices',
 };
 
 export const ROUTER_ENTRY: IRouter.Item[] = [
@@ -45,5 +49,15 @@ export const ROUTER_ENTRY: IRouter.Item[] = [
     url: ROUTER.careers,
     key: ROUTER_KEYS.careers,
     text: '职业生涯',
+  },
+  {
+    url: ROUTER.records,
+    key: ROUTER_KEYS.records,
+    text: '面试记录与复盘',
+  },
+  {
+    url: ROUTER.practices,
+    key: ROUTER_KEYS.practices,
+    text: '面试模拟',
   },
 ];

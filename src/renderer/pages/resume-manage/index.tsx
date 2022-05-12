@@ -6,6 +6,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { ResumeContainer, ResumeMain } from './styles';
 import { ROUTER } from '@routes/constants';
 import { idb } from '@db/idb';
+import { Link } from 'react-router-dom';
 
 const { TabPane } = Tabs;
 
@@ -18,7 +19,10 @@ export const ResumeManage = () => {
 
   const handleLink = (val: NewSubjectType) => () => {
     if (val === 'resume') {
-      navigate(ROUTER.resumeEdit);
+      navigate({
+        pathname: ROUTER.resumeEdit,
+        search: 'mode=create',
+      });
     }
   };
   const renderExtra = () => {
@@ -47,12 +51,20 @@ export const ResumeManage = () => {
             }
             key="resumes"
           >
-            <ul>
+            <ul style={{ height: '100%' }}>
               {resumes?.map((resume) => (
-                <li key={resume.id}>
-                  <p>名称: {resume.name}</p>
-                  <p>创建时间: {resume.created_at?.toLocaleTimeString()}</p>
-                </li>
+                <Link
+                  to={{
+                    pathname: `${ROUTER.resumeEdit}/${resume.id}`,
+                    search: 'mode=edit',
+                  }}
+                  key={resume.id}
+                >
+                  <li>
+                    <p>名称: {resume.name}</p>
+                    <p>创建时间: {resume.created_at?.toLocaleTimeString()}</p>
+                  </li>
+                </Link>
               ))}
             </ul>
           </TabPane>

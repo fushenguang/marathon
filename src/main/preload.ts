@@ -38,7 +38,7 @@ contextBridge.exposeInMainWorld('electron', {
   },
   dialog: {
     async show(options: OpenDialogOptions) {
-      return ipcRenderer.send('open-dialog', options);
+      return ipcRenderer.invoke('open-dialog', options);
     },
   },
   store: {
@@ -50,6 +50,14 @@ contextBridge.exposeInMainWorld('electron', {
     },
     delete(property: string) {
       ipcRenderer.send('store-delete', property);
+    },
+  },
+  knex: {
+    insert(tableName: string, data: Record<string, any>) {
+      return ipcRenderer.invoke('knex-insert', tableName, data);
+    },
+    where(tableName: string, query: Record<string, any> = {}) {
+      return ipcRenderer.invoke('knex-where', tableName, query);
     },
   },
 });

@@ -1,7 +1,7 @@
-import path from 'path';
 import fs from 'fs';
 import { ipcMain, dialog, desktopCapturer, webContents, app } from 'electron';
 import EStore from 'electron-store';
+import { knexInstance } from '@db/sqlite';
 
 import { busEvents } from '@common/bus-events';
 
@@ -59,9 +59,30 @@ export function injectIpcMainEvents() {
     eStore.delete(key);
   });
 
-  ipcMain.on('open-dialog', async (_event, options) => {
-    const filePath = await dialog.showOpenDialog(options);
-    console.log(filePath);
+  ipcMain.handle('open-dialog', async (_event, options) => {
+    const { canceled, filePaths } = await dialog.showOpenDialog(options);
+
+    if (canceled) return;
+
+    return filePaths;
+  });
+
+  ipcMain.handle('knex-insert', async (_, tableName: string, data: Record<string, any>) => {
+    try {
+      return await knexInstance(tableName).insert(data);
+    } catch (error) {
+      console.log('insert failed: ' + error);
+      return null;
+    }
+  });
+
+  ipcMain.handle('knex-where', async (_event, tableName: string, query: Record<string, any>) => {
+    try {
+      return await knexInstance(tableName).where(query);
+    } catch (error) {
+      console.log('insert failed: ' + error);
+      return null;
+    }
   });
 
   busEvents.on('eventName', (...args: any[]) => {

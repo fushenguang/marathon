@@ -4,6 +4,7 @@ import path from 'path';
 import { app, BrowserWindow, screen, protocol, shell, Tray } from 'electron';
 // import { exec } from 'child_process';
 
+import { initSQLite } from '@db/sqlite';
 import { appUpdater } from './updater';
 import { MenuBuilder } from './menu';
 import { injectIpcMainEvents } from './ipc-main';
@@ -25,8 +26,6 @@ protocol.registerSchemesAsPrivileged([
 
 let mainWin: BrowserWindow | null = null;
 let tray: Tray | null = null;
-
-injectIpcMainEvents();
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -107,13 +106,15 @@ const createWindow = async () => {
     // icon: '../../resource/unrelease/icon.png',
     webPreferences: {
       webSecurity: false, // Disable same-origin policy for the current window
-      // nodeIntegration: true,
+      nodeIntegration: true,
       // contextIsolation: false,
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
         : path.join(__dirname, '../../release/bundled/preload.js'),
     },
   });
+
+  injectIpcMainEvents();
 
   if (app.isPackaged) {
     mainWin.loadURL('app://./index.html');
@@ -161,7 +162,7 @@ app.on('window-all-closed', () => {
 
 app
   .whenReady()
-  .then(() => {
+  .then(async () => {
     createWindow();
 
     app.on('activate', () => {
@@ -180,6 +181,7 @@ app
 
     // console.log(mainScreen);
     // exec('osk.exe');
+    await initSQLite();
   })
   .catch(console.log);
 

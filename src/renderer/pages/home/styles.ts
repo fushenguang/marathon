@@ -20,11 +20,11 @@ export const Slogan = styled.div`
 export const HomeMain = styled.main`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  padding: 24px;
-  grid-row-gap: 24px;
-  grid-column-gap: 24px;
+  padding: 18px;
+  grid-row-gap: 18px;
+  grid-column-gap: 18px;
   width: 84%;
-  margin: -112px auto 0 auto;
+  margin: -128px auto 0 auto;
   border-radius: 8px;
   border: none;
   background: #fff;

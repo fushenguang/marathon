@@ -8,7 +8,7 @@ export interface IResume {
   created_at?: Date;
 }
 
-export class ReumesDexie extends Dexie {
+export class ResumeDexie extends Dexie {
   resumes!: Table<IResume>;
 
   constructor() {
@@ -20,4 +20,4 @@ export class ReumesDexie extends Dexie {
   }
 }
 
-export const idb = new ReumesDexie();
+export const idb = new ResumeDexie();

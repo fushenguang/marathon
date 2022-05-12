@@ -1,8 +1,7 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useRef, useEffect } from 'react';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Button, Drawer } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import { useMounted } from '@fujia/hooks';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { IndexableType } from 'dexie';
 
 // import { useAppDispatch } from '@store/hooks';
@@ -17,23 +16,40 @@ export const ResumeEdit = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [drawerTitle, setDrawerTitle] = useState('');
   const [editModuleName, setEditModuleName] = useState('');
-  const [resumeID, setResumeID] = useState<IndexableType | null>(null);
+  const [searchParams] = useSearchParams();
+  const [resumeIndexableId, setResumeIndexableId] = useState<IndexableType | null>(null);
   const navigate = useNavigate();
+  const params = useParams<{ resumeId: string }>();
+
+  const resumeMode = useRef(searchParams.get('mode') as 'edit' | 'create');
 
   const handleBack = () => {
     navigate(-1);
   };
 
-  const newResume = useCallback(async (params: { resumeName: string; created_at?: Date }) => {
+  const newResume = useCallback(async (params?: { resumeName: string; created_at?: Date }) => {
+    console.log('create new resume successfully...');
     const { resumeName = 'unnamed', created_at = new Date() } = params || {};
     try {
-      console.log('new resume');
       const id = await idb.resumes.add({ name: resumeName, created_at });
-      setResumeID(id);
+      setResumeIndexableId(id);
     } catch (error) {
       console.log(`Failed to add ${resumeName}: ${error}`);
     }
   }, []);
+
+  const readResumeById = async () => {
+    const { resumeId } = params || {};
+
+    if (!resumeId) return;
+
+    try {
+      const detail = await idb.resumes.get(Number(resumeId));
+      console.log('detail', detail);
+    } catch (error) {
+      console.log(`Failed to read resume: ${error}`);
+    }
+  };
 
   const handleModuleEdit = (item: ModuleItem) => {
     setIsVisible(true);
@@ -50,7 +66,15 @@ export const ResumeEdit = () => {
     setIsVisible(false);
   };
 
-  useMounted(newResume);
+  useEffect(() => {
+    if (resumeMode.current === 'create') {
+      newResume();
+    }
+
+    if (resumeMode.current === 'edit') {
+      readResumeById();
+    }
+  }, []);
 
   return (
     <ResumeContainer>

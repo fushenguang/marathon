@@ -8,6 +8,8 @@ import { Careers } from '@pages/careers';
 import { ResumeManage } from '@pages/resume-manage';
 import { ResumeEdit } from '@pages/resume-manage/resumes';
 import { Home } from '@pages/home';
+import { InterviewRecords } from '@pages/interview-records';
+import { InterviewPractice } from '@pages/interview-practice';
 
 const Router = () => {
   return (
@@ -18,7 +20,11 @@ const Router = () => {
           <Route index element={<Home />} />
           <Route path={ROUTER.careers} element={<Careers />} />
           <Route path={ROUTER.resumes} element={<ResumeManage />} />
-          <Route path={ROUTER.resumeEdit} element={<ResumeEdit />} />
+          <Route path={ROUTER.resumeEdit} element={<ResumeEdit />}>
+            <Route path=":resumeId" element={<ResumeEdit />} />
+          </Route>
+          <Route path={ROUTER.records} element={<InterviewRecords />} />
+          <Route path={ROUTER.practices} element={<InterviewPractice />} />
         </Route>
         <Route path={ROUTER.login} element={<LoginAndRegisterPage />} />
         <Route path={ROUTER.register} element={<LoginAndRegisterPage />} />

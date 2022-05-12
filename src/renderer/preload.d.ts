@@ -16,6 +16,10 @@ declare global {
         set: (key: string, val: any) => void;
         delete: (key: string) => void;
       };
+      knex: {
+        insert: (tableName: string, data: Record<string, any>) => Promise<any>;
+        where: (tableName: string, query?: Record<string, any>) => Promise<any>;
+      };
       dialog: {
         show: (options: OpenDialogOptions) => any;
       };

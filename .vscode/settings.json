@@ -1,0 +1,11 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "sqlite-demo",
+      "database": "${workspaceFolder:marathon}/__database/data.db"
+    }
+  ],
+  "sqltools.useNodeRuntime": true
+}
